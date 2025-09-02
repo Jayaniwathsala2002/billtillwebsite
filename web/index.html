@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base href="/web/">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="BillTill Invoice Generator - Create professional invoices easily">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="BILL_TILL">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>BillTill</title>
+  <link rel="manifest" href="manifest.json">
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: white;
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    #splash {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(90deg, #170069 0%, #0053C0 100%);
+      z-index: 9999;
+      transition: opacity 0.5s ease-out;
+      padding: 5vw;
+    }
+
+    #logo-container {
+      width: clamp(120px, 25vw, 180px);
+      height: clamp(120px, 25vw, 180px);
+      background: linear-gradient(90deg, #170069 0%, #0053C0 100%);
+      backdrop-filter: blur(10px);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      animation: float 3s infinite alternate ease-in-out;
+      margin-bottom: clamp(30px, 8vw, 60px);
+      border: 2px solid linear-gradient(90deg, #170069 0%, #0053C0 100%);
+    }
+
+    @keyframes float {
+      0% { transform: translateY(-10px); }
+      100% { transform: translateY(10px); }
+    }
+
+    #logo {
+      width: 70%;
+      height: 70%;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+    }
+
+    #progress-container {
+      width: clamp(150px, 50vw, 200px);
+      height: 4px;
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      margin-bottom: 20px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    #progress-bar {
+      position: absolute;
+      height: 100%;
+      width: 50%;
+      background: linear-gradient(90deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,1) 100%);
+      border-radius: 10px;
+      animation: progress 2s infinite alternate ease-in-out;
+    }
+
+    @keyframes progress {
+      0% {
+        left: -50%;
+      }
+      100% {
+        left: 100%;
+      }
+    }
+
+    #loading-text {
+      color: white;
+      font-size: clamp(14px, 3vw, 18px);
+      letter-spacing: 1.5px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      animation: fade 1.5s infinite alternate;
+    }
+
+    @keyframes fade {
+      0% { opacity: 0.6; }
+      100% { opacity: 1; }
+    }
+
+    .app-title {
+      font-size: clamp(24px, 5vw, 32px);
+      font-weight: 700;
+      color: white;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .app-subtitle {
+      font-size: clamp(14px, 3vw, 16px);
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: clamp(20px, 5vw, 40px);
+      text-align: center;
+    }
+
+    /* Media query for very small screens */
+    @media (max-height: 500px) {
+      #logo-container {
+        margin-bottom: 20px;
+      }
+
+      .app-subtitle {
+        margin-bottom: 20px;
+      }
+
+      #splash {
+        padding: 15px;
+      }
+    }
+
+    /* Media query for landscape orientation on mobile */
+    @media (max-height: 450px) and (orientation: landscape) {
+      #splash {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .app-title, .app-subtitle {
+        text-align: center;
+        width: 100%;
+        margin-bottom: 5px;
+      }
+
+      #logo-container {
+        margin: 0 20px;
+        width: 80px;
+        height: 80px;
+      }
+
+      #progress-container, #loading-text {
+        margin-left: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+<!-- Responsive splash screen with gradient colors -->
+<div id="splash">
+  <div class="app-title">BILL TILL</div>
+  <div class="app-subtitle">Free Invoice Generator</div>
+  <div id="logo-container">
+    <img id="logo" src="assets/assets/logowhite.png" alt="BillTill Logo">
+  </div>
+  <div id="progress-container">
+    <div id="progress-bar"></div>
+  </div>
+  <div id="loading-text">INITIALIZING...</div>
+</div>
+
+<script>
+  // Hide splash once Flutter is initialized
+  window.addEventListener('flutter-first-frame', function() {
+    const splash = document.getElementById('splash');
+    if (splash) {
+      splash.style.opacity = '0';
+      setTimeout(() => {
+        splash.remove();
+      }, 500);
+    }
+  });
+
+  // Service worker registration
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/sw.js', {
+        scope: '/'
+      }).then(function(registration) {
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      }, function(err) {
+        console.log('ServiceWorker registration failed: ', err);
+      });
+    });
+  }
+</script>
+
+<script src="flutter_bootstrap.js" async></script>
+</body>
+</html>
