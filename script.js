@@ -99,151 +99,161 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// =========================
 // Shop Section
-// =========================
+document.addEventListener("DOMContentLoaded", function () {
+  const container = document.getElementById("servicesContainer");
+  const scrollWrapper = document.getElementById("servicesScroll");
 
-document.addEventListener("DOMContentLoaded", function() {
-      const container = document.getElementById("servicesContainer");
-      const scrollWrapper = document.getElementById("servicesScroll");
-      
-      // Store original cards
-      const originalCards = scrollWrapper.innerHTML;
-      
-      // Duplicate cards for infinite loop
-      scrollWrapper.innerHTML += originalCards;
-      
-      let autoScrollSpeed = 1;
-      let isPaused = false;
-      let isDown = false;
-      let startX;
-      let scrollLeft;
-      let animationId;
-      let singleSetWidth = 0;
+  // Store original cards
+  const originalCards = scrollWrapper.innerHTML;
 
-      // Calculate the width of a single set of cards
-      function calculateSingleSetWidth() {
-        const cards = scrollWrapper.querySelectorAll('.service-card');
-        const gap = 25; // Same as CSS gap value
-        singleSetWidth = 0;
-        
-        // Only calculate based on first set of cards (original ones)
-        for (let i = 0; i < cards.length / 2; i++) {
-          if (cards[i]) {
-            singleSetWidth += cards[i].offsetWidth + gap;
-          }
-        }
-        
-        // Remove the extra gap at the end
-        singleSetWidth -= gap;
+  // Duplicate cards for infinite loop
+  scrollWrapper.innerHTML += originalCards;
+
+  let autoScrollSpeed = 1;
+  let isPaused = false;
+  let isDown = false;
+  let startX;
+  let scrollLeft;
+  let animationId;
+  let singleSetWidth = 0;
+
+  // Calculate the width of a single set of cards
+  function calculateSingleSetWidth() {
+    const cards = scrollWrapper.querySelectorAll(".service-card");
+    const gap = 25; // Same as CSS gap value
+    singleSetWidth = 0;
+
+    // Only calculate based on first set of cards (original ones)
+    for (let i = 0; i < cards.length / 2; i++) {
+      if (cards[i]) {
+        singleSetWidth += cards[i].offsetWidth + gap;
       }
+    }
 
-      // Initialize
-      calculateSingleSetWidth();
-      window.addEventListener('resize', calculateSingleSetWidth);
+    // Remove the extra gap at the end
+    singleSetWidth -= gap;
+  }
 
-      // Improved auto-scroll function with smooth animation
-      function autoScroll() {
-        if (!isPaused && !isDown) {
-          container.scrollLeft += autoScrollSpeed;
-          
-          // Check if we've scrolled past the original content
-          if (container.scrollLeft >= singleSetWidth) {
-            // Jump back to the beginning without animation
-            container.style.scrollBehavior = 'auto';
-            container.scrollLeft = container.scrollLeft - singleSetWidth;
-            
-            // Small delay to allow the DOM to update
-            setTimeout(() => {
-              container.style.scrollBehavior = 'smooth';
-            }, 50);
-          }
-        }
-        animationId = requestAnimationFrame(autoScroll);
+  // Initialize
+  calculateSingleSetWidth();
+  window.addEventListener("resize", calculateSingleSetWidth);
+
+  // Improved auto-scroll function with smooth animation
+  function autoScroll() {
+    if (!isPaused && !isDown) {
+      container.scrollLeft += autoScrollSpeed;
+
+      // Check if we've scrolled past the original content
+      if (container.scrollLeft >= singleSetWidth) {
+        // Jump back to the beginning without animation
+        container.style.scrollBehavior = "auto";
+        container.scrollLeft = container.scrollLeft - singleSetWidth;
+
+        // Small delay to allow the DOM to update
+        setTimeout(() => {
+          container.style.scrollBehavior = "smooth";
+        }, 50);
       }
+    }
+    animationId = requestAnimationFrame(autoScroll);
+  }
 
-      // Pause on hover over any card or the container
-      const allCards = document.querySelectorAll(".service-card");
-      allCards.forEach(card => {
-        card.addEventListener("mouseenter", () => {
-          isPaused = true;
-        });
-        card.addEventListener("mouseleave", () => {
-          isPaused = false;
-        });
-      });
-
-      // Also pause when hovering over the container itself
-      container.addEventListener("mouseenter", () => {
-        isPaused = true;
-      });
-      container.addEventListener("mouseleave", () => {
-        isPaused = false;
-      });
-
-      // Manual drag support
-      container.addEventListener("mousedown", (e) => {
-        isDown = true;
-        isPaused = true;
-        container.style.cursor = "grabbing";
-        startX = e.pageX - container.offsetLeft;
-        scrollLeft = container.scrollLeft;
-      });
-      
-      container.addEventListener("mouseleave", () => {
-        isDown = false;
-        container.style.cursor = "grab";
-      });
-      
-      container.addEventListener("mouseup", () => {
-        isDown = false;
-        container.style.cursor = "grab";
-        // Resume after a delay
-        setTimeout(() => { isPaused = false; }, 2000);
-      });
-      
-      container.addEventListener("mousemove", (e) => {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - container.offsetLeft;
-        const walk = (x - startX) * 2;
-        container.scrollLeft = scrollLeft - walk;
-      });
-
-      // Touch support for mobile devices
-      container.addEventListener("touchstart", (e) => {
-        isDown = true;
-        isPaused = true;
-        startX = e.touches[0].pageX - container.offsetLeft;
-        scrollLeft = container.scrollLeft;
-      }, { passive: true });
-      
-      container.addEventListener("touchend", () => {
-        isDown = false;
-        // Resume after a delay
-        setTimeout(() => { isPaused = false; }, 2000);
-      }, { passive: true });
-      
-      container.addEventListener("touchmove", (e) => {
-        if (!isDown) return;
-        const x = e.touches[0].pageX - container.offsetLeft;
-        const walk = (x - startX) * 2;
-        container.scrollLeft = scrollLeft - walk;
-      }, { passive: true });
-
-      // Start the animation
-      autoScroll();
-      
-      // Clean up animation on page exit
-      window.addEventListener('beforeunload', () => {
-        cancelAnimationFrame(animationId);
-      });
+  // Pause on hover over any card or the container
+  const allCards = document.querySelectorAll(".service-card");
+  allCards.forEach((card) => {
+    card.addEventListener("mouseenter", () => {
+      isPaused = true;
     });
+    card.addEventListener("mouseleave", () => {
+      isPaused = false;
+    });
+  });
 
+  // Also pause when hovering over the container itself
+  container.addEventListener("mouseenter", () => {
+    isPaused = true;
+  });
+  container.addEventListener("mouseleave", () => {
+    isPaused = false;
+  });
 
-// =========================
+  // Manual drag support
+  container.addEventListener("mousedown", (e) => {
+    isDown = true;
+    isPaused = true;
+    container.style.cursor = "grabbing";
+    startX = e.pageX - container.offsetLeft;
+    scrollLeft = container.scrollLeft;
+  });
+
+  container.addEventListener("mouseleave", () => {
+    isDown = false;
+    container.style.cursor = "grab";
+  });
+
+  container.addEventListener("mouseup", () => {
+    isDown = false;
+    container.style.cursor = "grab";
+    // Resume after a delay
+    setTimeout(() => {
+      isPaused = false;
+    }, 2000);
+  });
+
+  container.addEventListener("mousemove", (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - container.offsetLeft;
+    const walk = (x - startX) * 2;
+    container.scrollLeft = scrollLeft - walk;
+  });
+
+  // Touch support for mobile devices
+  container.addEventListener(
+    "touchstart",
+    (e) => {
+      isDown = true;
+      isPaused = true;
+      startX = e.touches[0].pageX - container.offsetLeft;
+      scrollLeft = container.scrollLeft;
+    },
+    { passive: true }
+  );
+
+  container.addEventListener(
+    "touchend",
+    () => {
+      isDown = false;
+      // Resume after a delay
+      setTimeout(() => {
+        isPaused = false;
+      }, 2000);
+    },
+    { passive: true }
+  );
+
+  container.addEventListener(
+    "touchmove",
+    (e) => {
+      if (!isDown) return;
+      const x = e.touches[0].pageX - container.offsetLeft;
+      const walk = (x - startX) * 2;
+      container.scrollLeft = scrollLeft - walk;
+    },
+    { passive: true }
+  );
+
+  // Start the animation
+  autoScroll();
+
+  // Clean up animation on page exit
+  window.addEventListener("beforeunload", () => {
+    cancelAnimationFrame(animationId);
+  });
+});
+
 // Pricing Section
-// =========================
 function selectPlan(card) {
   document.querySelectorAll(".pricing-card").forEach((c) => {
     c.classList.remove("selected");
@@ -292,42 +302,21 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+// Contact Us Section
+
+// Handle form submission (hardcoded message)
+document.getElementById("contactForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  // Always send the same predefined message
+  const text = `Hi Bill Till,%0A%0AI am interested in your POS system. Please provide me with more details.%0A%0AThank you!`;
+  const url = `https://wa.me/94770600508?text=${text}`;
+
+  window.open(url, "_blank");
+  this.reset();
+});
+
 // =========================
-// Contact Section
-// =========================
-// Show WhatsApp button only when Contact section is in view
-    const whatsappButton = document.querySelector('.whatsapp-float');
-    const contactSection = document.getElementById('contact');
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            whatsappButton.classList.add('visible');
-          } else {
-            whatsappButton.classList.remove('visible');
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-
-    observer.observe(contactSection);
-
-    // Handle form submission (hardcoded message)
-    document.getElementById("contactForm").addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      // Always send the same predefined message
-      const text = `Hi Bill Till,%0A%0AI am interested in your POS system. Please provide me with more details.%0A%0AThank you!`;
-      const url = `https://wa.me/94770600508?text=${text}`;
-
-      window.open(url, '_blank');
-      this.reset();
-    });
-
-
-    // =========================
 //  Language Modal
 // =========================
 
@@ -352,11 +341,11 @@ function chooseLanguage(lang) {
     English: { ok: "OK", cancel: "Cancel" },
   };
 
-  // Target links for each language (🔹 Moved to global storage)
+  // Target links for each language
   langLinks = {
-    Sinhala: "sinhala.html", // 🔹 Replace with Sinhala page link
-    Tamil: "tamil.html", // 🔹 Replace with Tamil page link
-    English: "english.html", // 🔹 Replace with English page link
+    Sinhala: "sinhala.html",
+    Tamil: "tamil.html", 
+    English: "english.html",
   };
 
   // Set message and buttons
@@ -403,7 +392,3 @@ document.addEventListener("mousemove", (e) => {
   cursor.style.top = e.clientY + "px";
   cursor.style.left = e.clientX + "px";
 });
-
-
-
-
