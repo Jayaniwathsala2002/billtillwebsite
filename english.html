@@ -84,11 +84,11 @@
       <a href="web" class="hero-invoice-btn" target="_blank" rel="noopener">FREE INVOICE GENERATOR</a>
     </div>
 
-    <!-- Carousel Indicators -->
-    <div class="carousel-indicators" role="tablist">
-      <span class="dot active" data-index="0" role="tab" aria-selected="true" tabindex="0"></span>
-      <span class="dot" data-index="1" role="tab" aria-selected="false" tabindex="0"></span>
-      <span class="dot" data-index="2" role="tab" aria-selected="false" tabindex="0"></span>
+    <!-- Carousel Indicators (Non-interactive) -->
+    <div class="carousel-indicators">
+      <span class="dot active" data-index="0"></span>
+      <span class="dot" data-index="1"></span>
+      <span class="dot" data-index="2"></span>
     </div>
   </section>
 
@@ -97,10 +97,11 @@
        Product Section 
   ========================== -->
 
-  <div class="our-products-section" id="products">
+ <div class="our-products-section" id="products">
     <h1 class="main-heading">Our Products</h1>
 
     <div class="products-container">
+      <!-- Retail Section -->
       <section class="product-section" id="retail" aria-label="Retail Solutions" tabindex="0">
         <img src="assets/images/product/Product1.jpeg"
           alt="Retail Store Management System - Streamline sales, inventory, and customer service" class="section-image"
@@ -156,76 +157,77 @@
   <!-- =========================
        Shop Section 
   ========================== -->
-
-  <div class="shop-section" id="shop">
-    <div class="container">
-      <div class="services-header">
-        <h2>Available Services</h2>
-      </div>
-
-      <!-- Horizontal Scrolling Cards -->
-      <div class="services-container-wrapper">
-        <div class="services-container" id="servicesContainer">
-          <div class="services-scroll" id="servicesScroll">
-
-            <!-- Cards -->
-            <div class="service-card card">
-              <div class="card-img-top">
-                <img src="assets/images/services/service1.jpg" alt="Customer Management">
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Customer Management System</h5>
-                <p class="card-text">Streamline customer interactions and manage relationships effectively with our
-                  comprehensive CRM solution.</p>
-                <button class="btn card-button">Explore Service</button>
-              </div>
+<div class="shop-section" id="shop">
+        <div class="container">
+            <div class="services-header">
+                <h2>Available Services</h2>
             </div>
 
-            <div class="service-card card">
-              <div class="card-img-top">
-                <img src="assets/images/services/service2.jpg" alt="Inventory Management">
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Inventory Management</h5>
-                <p class="card-text">Track stock levels, manage orders, and optimize inventory with real-time updates
-                  and alerts.</p>
-                <button class="btn card-button">Explore Service</button>
-              </div>
+            <!-- Horizontal Scrolling Cards -->
+            <div class="services-container-wrapper">
+                <div class="services-container" id="servicesContainer">
+                    <div class="services-scroll" id="servicesScroll">
+
+                        <!-- Cards -->
+                        <div class="service-card card">
+                            <div class="card-img-top">
+                                <img src="assets/images/services/service1.jpg" alt="Customer Management">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Customer Management System</h5>
+                                <p class="card-text">Streamline customer interactions and manage relationships
+                                    effectively with our comprehensive CRM solution designed to boost your business
+                                    growth.</p>
+                                <button class="btn card-button">Explore Service</button>
+                            </div>
+                        </div>
+
+                        <div class="service-card card">
+                            <div class="card-img-top">
+                                <img src="assets/images/services/service2.jpg" alt="Inventory Management">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Inventory Management</h5>
+                                <p class="card-text">Track stock levels, manage orders, and optimize inventory with
+                                    real-time updates and intelligent alerts to prevent stockouts and overstocking.</p>
+                                <button class="btn card-button">Explore Service</button>
+                            </div>
+                        </div>
+
+                        <div class="service-card card">
+                            <div class="card-img-top">
+                                <img src="assets/images/services/service3.jpg" alt="Online Ordering">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Online Ordering</h5>
+                                <p class="card-text">Enable customers to place orders online with ease through our
+                                    intuitive, user-friendly ordering platform that integrates seamlessly with your
+                                    existing systems.</p>
+                                <button class="btn card-button">Explore Service</button>
+                            </div>
+                        </div>
+
+                        <div class="service-card card">
+                            <div class="card-img-top">
+                                <img src="assets/images/services/service4.jpg" alt="Mobile Order Management">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Mobile Order Management</h5>
+                                <p class="card-text">Manage orders on-the-go with our powerful mobile solution that
+                                    gives you complete control and real-time insights wherever you are.</p>
+                                <button class="btn card-button">Explore Service</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
 
-            <div class="service-card card">
-              <div class="card-img-top">
-                <img src="assets/images/services/service3.jpg" alt="Online Ordering">
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Online Ordering</h5>
-                <p class="card-text">Enable customers to place orders online with ease through our intuitive ordering
-                  platform.</p>
-                <button class="btn card-button">Explore Service</button>
-              </div>
+            <div class="scroll-indicator d-md-none">
+                <i class="fas fa-arrows-alt-h"></i> Scroll horizontally to view more
             </div>
-
-            <div class="service-card card">
-              <div class="card-img-top">
-                <img src="assets/images/services/service4.jpg" alt="Mobile Order Management">
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">Mobile Order Management</h5>
-                <p class="card-text">Enable customers to place orders online with ease through our intuitive ordering
-                  platform.</p>
-                <button class="btn card-button">Explore Service</button>
-              </div>
-            </div>
-            
-          </div>
         </div>
-      </div>
-
-      <div class="scroll-indicator d-md-none">
-        <i class="fas fa-arrows-alt-h"></i> Scroll horizontally to view more
-      </div>
     </div>
-  </div>
 
   <!-- =========================
        Pricing Section 
