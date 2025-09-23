@@ -85,6 +85,68 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // =========================
+// Product Section
+// =========================
+
+document.addEventListener('DOMContentLoaded', function() {
+      // Modal elements
+      const triggers = {
+        retail: document.querySelector('.retail-modal-trigger'),
+        restaurant: document.querySelector('.restaurant-modal-trigger'),
+        rental: document.querySelector('.rental-modal-trigger')
+      };
+      
+      const modals = {
+        retail: document.getElementById('retail-modal'),
+        restaurant: document.getElementById('restaurant-modal'),
+        rental: document.getElementById('rental-modal')
+      };
+      
+      const closeModalButtons = document.querySelectorAll('.modal-close');
+      
+      // Open modals
+      Object.keys(triggers).forEach(key => {
+        triggers[key].addEventListener('click', function(e) {
+          e.preventDefault();
+          modals[key].classList.add('active');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+      
+      // Close modals via × button
+      closeModalButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const modal = this.closest('.modal-overlay');
+          closeModal(modal);
+        });
+      });
+
+      // Close modals via CTA button
+      document.querySelectorAll('.modal-cta').forEach(button => {
+        button.addEventListener('click', function() {
+          const modal = this.closest('.modal-overlay');
+          closeModal(modal);
+        });
+      });
+      
+      // Close on Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          Object.values(modals).forEach(modal => {
+            if (modal.classList.contains('active')) {
+              closeModal(modal);
+            }
+          });
+        }
+      });
+      
+      function closeModal(modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
+    });
+
+// =========================
 // Shop Section
 // =========================
 
